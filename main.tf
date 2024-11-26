@@ -26,8 +26,6 @@ module "igw" {
 		web_vpc_id = module.vpc.dev-sp-vpc-id != "" ? module.vpc.dev-sp-vpc-id : module.vpc.prod-vpc-id
 		environment = var.environment
 		tags = var.tags
-		dev-sp-vpc-cidr-block = var.dev-sp-vpc-cidr-block != "" ? var.dev-sp-vpc-cidr-block : ""
-    prod-sp-vpc-cidr-block = var.prod-sp-vpc-cidr-block != "" ? var.prod-sp-vpc-cidr-block : ""
 }
 
 #module "route" {
@@ -48,10 +46,13 @@ module "igw" {
 #    private_subnet_c_id = module.subnet.private_subnet_c.id 
 #}
 #
-#module "subnet" {
-#    source = "./module/network/subnet"
-#    web_vpc_id = module.vpc.web_vpc_id
-#}
+
+module "subnet" {
+    source = "./module/network/subnet"
+		web_vpc_id = module.vpc.dev-sp-vpc-id != "" ? module.vpc.dev-sp-vpc-id : module.vpc.prod-vpc-id
+		environment = var.environment
+		tags = var.tags
+}
 
 #module "database" {
 #    source = "./module/database"
