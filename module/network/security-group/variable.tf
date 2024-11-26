@@ -1,14 +1,17 @@
-variable "web_vpc_id" {
+variable "sp-vpc-id" {
   type = string 
 }
 
-variable "web_vpc_cidr_block" {
-  type = string
+variable "environment" {
+  description = "Deployment environment (e.g., dev, prod)"
+  type        = string
 }
 
-variable "private_subnet_a_id" {
-  type = string
+variable "tags" {
+  description = "Common tags for all resources"
+  type        = map(string)
 }
-variable "private_subnet_c_id" {
+
+variable "sp-vpc-cidr-block" {
   type = string
 }

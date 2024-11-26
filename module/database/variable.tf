@@ -1,5 +1,17 @@
-variable "private_subnet_a_id" {
-  description = ""
+variable "sp-subnet-group-id" {
+  type = string
+}
+
+variable "sp-subnet-db-active" {
+  type = string
+}
+
+variable "sp-subnet-db-standby" {
+  type = string
+}
+
+variable "db-security-group-name" {
+  type = string
 }
 
 variable "rds_instances" {

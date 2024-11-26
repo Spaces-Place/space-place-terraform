@@ -1,4 +1,4 @@
-variable "web_vpc_id" {
+variable "sp-vpc-id" {
   type = string
 }
 
