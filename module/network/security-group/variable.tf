@@ -1,5 +1,5 @@
 variable "sp-vpc-id" {
-  type = string 
+  type = string
 }
 
 variable "environment" {

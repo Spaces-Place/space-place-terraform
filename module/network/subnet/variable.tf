@@ -1,5 +1,5 @@
 variable "web_vpc_id" {
-   type = string 
+  type = string
 }
 
 variable "environment" {

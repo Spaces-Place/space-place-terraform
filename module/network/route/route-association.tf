@@ -14,21 +14,21 @@ resource "aws_route_table_association" "sp-association-data-a" {
 }
 
 resource "aws_route_table_association" "sp-association-data-b" {
-  subnet_id      = var.sp-subnet-data-b-id 
+  subnet_id      = var.sp-subnet-data-b-id
   route_table_id = aws_route_table.sp-private-rt.id
 }
 
 resource "aws_route_table_association" "sp-association-db-active" {
-  subnet_id      = var.sp-subnet-db-active-id 
+  subnet_id      = var.sp-subnet-db-active-id
   route_table_id = aws_route_table.sp-private-rt.id
 }
 
 resource "aws_route_table_association" "sp-association-db-standby" {
-  subnet_id      = var.sp-subnet-db-standby-id 
+  subnet_id      = var.sp-subnet-db-standby-id
   route_table_id = aws_route_table.sp-private-rt.id
 }
 
 resource "aws_route_table_association" "sp-association-nat" {
-  subnet_id      = var.sp-subnet-nat-id 
+  subnet_id      = var.sp-subnet-nat-id
   route_table_id = aws_route_table.sp-public-rt.id
 }

@@ -3,7 +3,7 @@ variable "sp-vpc-id" {
 }
 
 variable "environment" {
-    type = string
+  type = string
 }
 
 variable "tags" {

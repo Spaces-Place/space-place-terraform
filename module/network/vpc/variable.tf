@@ -1,6 +1,6 @@
 variable "sp-vpc-cidr-block" {
-    description = "vpc cidr block"
-    type = string
+  description = "vpc cidr block"
+  type        = string
 }
 
 variable "tags" {
@@ -9,5 +9,5 @@ variable "tags" {
 }
 
 variable "environment" {
-    type    = string
+  type = string
 }
