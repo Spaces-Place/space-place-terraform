@@ -1,7 +1,4 @@
-output "dev-sp-vpc-id" {
-    value = length(aws_vpc.dev-sp-vpc) > 0 ? aws_vpc.dev-sp-vpc[0].id : null
+output "sp-vpc-id" {
+    value = aws_vpc.sp-vpc.id
 }
 
-output "prod-sp-vpc-id" {
-    value = length(aws_vpc.prod-sp-vpc) > 0 ? aws_vpc.prod-sp-vpc[0].id : null
-}
