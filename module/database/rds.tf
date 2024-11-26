@@ -1,19 +1,19 @@
-resource "aws_db_instance" "main" {
-  allocated_storage    = var.allocated_storage    
-  db_name              = var.db_name              
-  engine               = var.engine               
-  engine_version       = var.engine_version       
-  instance_class       = var.instance_class       
-  username             = var.username             
-  password             = var.password             
-  parameter_group_name = var.parameter_group_name 
-  skip_final_snapshot  = var.skip_final_snapshot
-  availability_zone    = var.rds_instance_az
-  multi_az             = false
-  db_subnet_group_name = var.rds_subnet_group_id
+resource "aws_db_instance" "rds" {
+  for_each = { for idx, rds in var.rds_instances : idx => rds }
 
-  vpc_security_group_ids = [var.db_security_group_name]
-  tags = {
-    Name = "main"
-  }
+  identifier          = each.value.identifier
+  engine              = each.value.engine
+  instance_class      = each.value.instance_class
+  allocated_storage   = each.value.allocated_storage
+  username            = each.value.username
+  password            = each.value.password
+  db_name             = each.value.db_name
+  multi_az            = each.value.multi_az
+
+  parameter_group_name = lookup(each.value, "parameter_group", null)
+  db_subnet_group_name = lookup(each.value, "subnet_group", null)
+
+  # Add other configurations if needed
+  publicly_accessible = false
 }
+

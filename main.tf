@@ -15,47 +15,55 @@ terraform {
 
 module "vpc" {
     source = "./module/network/vpc"
+		dev-sp-vpc-cidr-block = var.dev-sp-vpc-cidr-block != "" ? var.dev-sp-vpc-cidr-block : ""
+    prod-sp-vpc-cidr-block = var.prod-sp-vpc-cidr-block != "" ? var.prod-sp-vpc-cidr-block : ""
+		tags = var.tags
+		environment = var.environment
 }
 
 module "igw" {
     source = "./module/network/igw"
-    web_vpc_id = module.vpc.web_vpc_id
+		web_vpc_id = module.vpc.dev-sp-vpc-id != "" ? module.vpc.dev-sp-vpc-id : module.vpc.prod-vpc-id
+		environment = var.environment
+		tags = var.tags
+		dev-sp-vpc-cidr-block = var.dev-sp-vpc-cidr-block != "" ? var.dev-sp-vpc-cidr-block : ""
+    prod-sp-vpc-cidr-block = var.prod-sp-vpc-cidr-block != "" ? var.prod-sp-vpc-cidr-block : ""
 }
 
-module "route" {
-    source = "./module/network/route"
-    web_vpc_id = module.vpc.web_vpc_id
-    igw_id = module.igw.igw_id
-    web_vpc_cidr_block = module.vpc.web_vpc_cidr_block
-    public_subnet_a_id = module.subnet.public_subnet_a.id
-    private_subnet_a_id = module.subnet.private_subnet_a.id
-    private_subnet_c_id = module.subnet.private_subnet_c.id 
-}
+#module "route" {
+#    source = "./module/network/route"
+#    web_vpc_id = module.vpc.web_vpc_id
+#    igw_id = module.igw.igw_id
+#    web_vpc_cidr_block = module.vpc.web_vpc_cidr_block
+#    public_subnet_a_id = module.subnet.public_subnet_a.id
+#    private_subnet_a_id = module.subnet.private_subnet_a.id
+#    private_subnet_c_id = module.subnet.private_subnet_c.id 
+#}
+#
+#module "security-group" {
+#    source = "./module/network/security-group"
+#    web_vpc_id = module.vpc.web_vpc_id
+#    web_vpc_cidr_block = module.vpc.web_vpc_cidr_block
+#    private_subnet_a_id = module.subnet.private_subnet_a.id
+#    private_subnet_c_id = module.subnet.private_subnet_c.id 
+#}
+#
+#module "subnet" {
+#    source = "./module/network/subnet"
+#    web_vpc_id = module.vpc.web_vpc_id
+#}
 
-module "security-group" {
-    source = "./module/network/security-group"
-    web_vpc_id = module.vpc.web_vpc_id
-    web_vpc_cidr_block = module.vpc.web_vpc_cidr_block
-    private_subnet_a_id = module.subnet.private_subnet_a.id
-    private_subnet_c_id = module.subnet.private_subnet_c.id 
-}
+#module "database" {
+#    source = "./module/database"
+#    private_subnet_a_id = module.subnet.private_subnet_a.id
+#    private_subnet_c_id = module.subnet.private_subnet_c.id
+#    db_security_group_name = module.security-group.sg_for_rds_id
+#    rds_subnet_group_id = module.subnet.rds_subnet_group_id
+#}
 
-module "database" {
-    source = "./module/database"
-    private_subnet_a_id = module.subnet.private_subnet_a.id
-    private_subnet_c_id = module.subnet.private_subnet_c.id
-    db_security_group_name = module.security-group.sg_for_rds_id
-    rds_subnet_group_id = module.subnet.rds_subnet_group_id
-}
-
-module "subnet" {
-    source = "./module/network/subnet"
-    web_vpc_id = module.vpc.web_vpc_id
-}
-
-module "ec2" {
-    source = "./module/ec2"
-    web_sg_id = module.security-group.web_sg_id
-    public_subnet_a_id = module.subnet.public_subnet_a.id
-    availability_zone = ["ap-northeast-2a", "ap-northeast-2c"]
-}
+#module "ec2" {
+#    source = "./module/ec2"
+#    web_sg_id = module.security-group.web_sg_id
+#    public_subnet_a_id = module.subnet.public_subnet_a.id
+#    availability_zone = ["ap-northeast-2a", "ap-northeast-2c"]
+#}

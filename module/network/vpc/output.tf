@@ -1,7 +1,7 @@
-output "web_vpc_id" {
-    value = aws_vpc.web.id
+output "dev-sp-vpc-id" {
+    value = length(aws_vpc.dev-sp-vpc) > 0 ? aws_vpc.dev-sp-vpc[0].id : null
 }
 
-output "web_vpc_cidr_block" {
-    value = aws_vpc.web.cidr_block
+output "prod-sp-vpc-id" {
+    value = length(aws_vpc.prod-sp-vpc) > 0 ? aws_vpc.prod-sp-vpc[0].id : null
 }
