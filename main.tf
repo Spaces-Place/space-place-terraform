@@ -67,14 +67,26 @@ module "subnet" {
   tags        = var.tags
 }
 
-module "database" {
-  source               = "./module/database"
+
+
+module "rds" {
+  source               = "./module/database/rds"
   environment          = var.environment
   tags                 = var.tags
   sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
   sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
   sp-subnet-group-id   = module.subnet.sp-subnet-group-rds.id
   rds_instances        = var.rds_instances
+}
+
+module "documentDB" {
+  source               = "./module/database/documentDB"
+  environment          = var.environment
+  tags                 = var.tags
+  sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
+  sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
+  sp-subnet-group-id   = module.subnet.sp-subnet-group-rds.id
+  docdb_cluster        = var.docdb_cluster
 }
 
 module "eks" {
@@ -84,5 +96,7 @@ module "eks" {
   environment            = var.environment
   sp-subnet-control-a-id = module.subnet.subnet_ids["control-a"]
   sp-subnet-control-b-id = module.subnet.subnet_ids["control-b"]
+  sp-subnet-data-a-id    = module.subnet.subnet_ids["data-a"]
+  sp-subnet-data-b-id    = module.subnet.subnet_ids["data-b"]
   tags                   = var.tags
 }

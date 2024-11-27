@@ -27,3 +27,11 @@ variable "sp-subnet-control-a-id" {
 variable "sp-subnet-control-b-id" {
   type = string
 }
+
+variable "sp-subnet-data-a-id" {
+  type = string
+}
+
+variable "sp-subnet-data-b-id" {
+  type = string
+}

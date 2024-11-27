@@ -40,3 +40,15 @@ variable "rds_instances" {
     multi_az          = optional(bool, false)
   }))
 }
+
+variable "docdb_cluster" {
+  type = object({
+    cluster_identifier    = string
+    engine                = string
+    master_username       = string
+    master_password       = string
+    backup_retention_period = string
+    preferred_backup_window = string
+    skip_final_snapshot     = bool}
+  )
+}
