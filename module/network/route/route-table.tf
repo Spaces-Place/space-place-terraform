@@ -19,8 +19,8 @@ resource "aws_route_table" "sp-public-rt" {
   vpc_id = var.sp-vpc-id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = var.sp-nat-id
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = var.sp-nat-id
   }
 
   route {
@@ -30,6 +30,27 @@ resource "aws_route_table" "sp-public-rt" {
 
   tags = {
     Name        = "${var.environment}-sp-public-rt"
+    Environment = var.environment
+    Project     = var.tags["Project"]
+    Owner       = var.tags["Owner"]
+  }
+}
+
+resource "aws_route_table" "sp-igw-rt" {
+  vpc_id = var.sp-vpc-id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = var.sp-igw-id
+  }
+
+  route {
+    cidr_block = var.sp-vpc-cidr-block
+    gateway_id = "local"
+  }
+
+  tags = {
+    Name        = "${var.environment}-sp-igw-rt"
     Environment = var.environment
     Project     = var.tags["Project"]
     Owner       = var.tags["Owner"]

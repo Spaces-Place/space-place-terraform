@@ -1,3 +1,22 @@
+resource "aws_default_security_group" "default" {
+  vpc_id = var.sp-vpc-id
+
+  ingress {
+    protocol    = -1
+    self        = true
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_security_group" "web-sg" {
   vpc_id      = var.sp-vpc-id
   description = "Allow TLS inbound traffic and all outbound traffic"
@@ -40,7 +59,8 @@ resource "aws_security_group" "rds-sg" {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = [aws_security_group.web-sg.id]
+    security_groups = var.environment == "dev" ? null : [aws_security_group.web-sg.id]
+    cidr_blocks     = var.environment == "dev" ? ["0.0.0.0/0"] : null
   }
 
   tags = {
@@ -63,6 +83,24 @@ resource "aws_security_group" "document-sg" {
 
   tags = {
     Name        = "${var.environment}-sp-document-sg"
+    Environment = var.environment
+    Project     = var.tags["Project"]
+    Owner       = var.tags["Owner"]
+  }
+}
+
+resource "aws_security_group" "cluster-sg" {
+  vpc_id = var.sp-vpc-id
+
+  ingress {
+    from_port       = 27017
+    to_port         = 27017
+    protocol        = "tcp"
+    security_groups = [aws_security_group.web-sg.id]
+  }
+
+  tags = {
+    Name        = "${var.environment}-sp-cluster-sg"
     Environment = var.environment
     Project     = var.tags["Project"]
     Owner       = var.tags["Owner"]

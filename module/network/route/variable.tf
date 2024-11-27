@@ -47,3 +47,11 @@ variable "sp-subnet-db-standby-id" {
 variable "sp-subnet-nat-id" {
   type = string
 }
+
+variable "sp-subnet-public-id" {
+  type = string
+}
+
+variable "sp-igw-id" {
+  type = string
+}

@@ -3,6 +3,20 @@ locals {
   az_b = "ap-northeast-2c"
 }
 
+resource "aws_subnet" "sp-subnet-public" {
+  vpc_id            = var.web_vpc_id
+  cidr_block        = var.environment == "dev" ? "10.0.1.0/24" : "10.1.1.0/24"
+  availability_zone = local.az_a
+
+  tags = {
+    Name        = "${var.environment}-sp-subnet-public-a"
+    Environment = var.environment
+    Project     = var.tags["Project"]
+    Owner       = var.tags["Owner"]
+  }
+
+}
+
 # Subnet
 resource "aws_subnet" "sp-subnet-control-a" {
   vpc_id            = var.web_vpc_id

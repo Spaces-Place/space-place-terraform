@@ -1,3 +1,8 @@
+resource "aws_route_table_association" "sp-association-igw-a" {
+  subnet_id      = var.sp-subnet-public-id
+  route_table_id = aws_route_table.sp-igw-rt.id
+}
+
 resource "aws_route_table_association" "sp-association-control-a" {
   subnet_id      = var.sp-subnet-control-a-id
   route_table_id = aws_route_table.sp-private-rt.id
@@ -20,15 +25,15 @@ resource "aws_route_table_association" "sp-association-data-b" {
 
 resource "aws_route_table_association" "sp-association-db-active" {
   subnet_id      = var.sp-subnet-db-active-id
-  route_table_id = aws_route_table.sp-private-rt.id
+  route_table_id = var.environment == "dev" ? aws_route_table.sp-igw-rt.id : aws_route_table.sp-private-rt.id
 }
 
 resource "aws_route_table_association" "sp-association-db-standby" {
   subnet_id      = var.sp-subnet-db-standby-id
-  route_table_id = aws_route_table.sp-private-rt.id
+  route_table_id = var.environment == "dev" ? aws_route_table.sp-igw-rt.id : aws_route_table.sp-private-rt.id
 }
 
 resource "aws_route_table_association" "sp-association-nat" {
   subnet_id      = var.sp-subnet-nat-id
-  route_table_id = aws_route_table.sp-public-rt.id
+  route_table_id = aws_route_table.sp-igw-rt.id
 }

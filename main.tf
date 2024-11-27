@@ -33,6 +33,7 @@ module "route" {
   tags                    = var.tags
   sp-vpc-id               = module.vpc.sp-vpc-id
   sp-nat-id               = module.nat.sp-nat-id
+  sp-igw-id               = module.igw.igw_id
   sp-vpc-cidr-block       = module.vpc.sp-vpc-cidr-block
   sp-subnet-control-a-id  = module.subnet.subnet_ids["control-a"]
   sp-subnet-control-b-id  = module.subnet.subnet_ids["control-b"]
@@ -41,6 +42,7 @@ module "route" {
   sp-subnet-db-active-id  = module.subnet.subnet_ids["db-active"]
   sp-subnet-db-standby-id = module.subnet.subnet_ids["db-standby"]
   sp-subnet-nat-id        = module.subnet.subnet_ids["nat"]
+  sp-subnet-public-id     = module.subnet.subnet_ids["public"]
 }
 
 module "nat" {
@@ -66,10 +68,21 @@ module "subnet" {
 }
 
 module "database" {
-  source                 = "./module/database"
-  sp-subnet-db-active    = module.subnet.subnet_ids["db-active"]
-  sp-subnet-db-standby   = module.subnet.subnet_ids["db-standby"]
-  db-security-group-name = module.security-group.rds-sg-name
-  sp-subnet-group-id     = module.subnet.sp-subnet-group-rds.id
-  rds_instances          = var.rds_instances
+  source               = "./module/database"
+  environment          = var.environment
+  tags                 = var.tags
+  sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
+  sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
+  sp-subnet-group-id   = module.subnet.sp-subnet-group-rds.id
+  rds_instances        = var.rds_instances
+}
+
+module "eks" {
+  source                 = "./module/eks"
+  worker_instance_type   = var.worker_instance_type
+  sp-sg-cluster          = module.security-group.cluster-sg-id
+  environment            = var.environment
+  sp-subnet-control-a-id = module.subnet.subnet_ids["control-a"]
+  sp-subnet-control-b-id = module.subnet.subnet_ids["control-b"]
+  tags                   = var.tags
 }

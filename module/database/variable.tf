@@ -10,10 +10,6 @@ variable "sp-subnet-db-standby" {
   type = string
 }
 
-variable "db-security-group-name" {
-  type = string
-}
-
 variable "rds_instances" {
   description = "List of RDS instances to create"
   type = list(object({
@@ -30,3 +26,12 @@ variable "rds_instances" {
   }))
 }
 
+variable "environment" {
+  description = "Deployment environment (e.g., dev, prod)"
+  type        = string
+}
+
+variable "tags" {
+  description = "Common tags for all resources"
+  type        = map(string)
+}

@@ -7,6 +7,7 @@ output "subnet_ids" {
     db-active  = aws_subnet.sp-subnet-db-active.id
     db-standby = aws_subnet.sp-subnet-db-standby.id
     nat        = aws_subnet.sp-subnet-nat.id
+    public     = aws_subnet.sp-subnet-public.id
   }
   description = "IDs of the created subnets"
 }
