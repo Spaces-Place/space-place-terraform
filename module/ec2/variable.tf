@@ -1,3 +1,7 @@
+variable "sp-subnet-public-id" {
+  type = string
+}
+
 variable "ami_spring_snapshot" {
   type        = string
   description = "EC2가 사용한 Machine Image"
@@ -11,10 +15,6 @@ variable "ami_worker_node_tier" {
 }
 
 variable "web_sg_id" {
-  type = string
-}
-
-variable "public_subnet_a_id" {
   type = string
 }
 

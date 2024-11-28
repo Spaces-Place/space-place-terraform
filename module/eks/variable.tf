@@ -1,3 +1,7 @@
+variable "sp-vpc-id" {
+  type = string
+}
+
 variable "sp-sg-cluster" {
   type = string
 }

@@ -67,8 +67,6 @@ module "subnet" {
   tags        = var.tags
 }
 
-
-
 module "rds" {
   source               = "./module/database/rds"
   environment          = var.environment
@@ -85,18 +83,26 @@ module "documentDB" {
   tags                 = var.tags
   sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
   sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
-  sp-subnet-group-id   = module.subnet.sp-subnet-group-rds.id
+  db-subnet-group-ids = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
+  vpc-security-group-ids  = module.security-group.sp-docdb-security-group-ids
   docdb_cluster        = var.docdb_cluster
 }
 
 module "eks" {
   source                 = "./module/eks"
+  sp-vpc-id              = module.vpc.sp-vpc-id
   worker_instance_type   = var.worker_instance_type
-  sp-sg-cluster          = module.security-group.cluster-sg-id
+  sp-sg-cluster          = module.security-group.sp-security-group-for-cluster-id
   environment            = var.environment
   sp-subnet-control-a-id = module.subnet.subnet_ids["control-a"]
   sp-subnet-control-b-id = module.subnet.subnet_ids["control-b"]
   sp-subnet-data-a-id    = module.subnet.subnet_ids["data-a"]
   sp-subnet-data-b-id    = module.subnet.subnet_ids["data-b"]
   tags                   = var.tags
+}
+
+module "ec2" {
+  source                 = "./module/ec2"
+  sp-subnet-public-id    = module.subnet.subnet_ids["public"]
+  web_sg_id              = module.security-group.web-sg-id 
 }

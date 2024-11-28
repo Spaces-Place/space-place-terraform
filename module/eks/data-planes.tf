@@ -33,7 +33,7 @@ resource "aws_iam_role_policy_attachment" "amazon_ec2_container_registry_read_on
   role       = aws_iam_role.nodes.name
 }
 
-resource "aws_eks_node_group" "general" {
+resource "aws_eks_node_group" "sp-eks-node-group" {
   cluster_name    = aws_eks_cluster.sp-eks.name
   version         = var.eks_version
   node_group_name = "general"

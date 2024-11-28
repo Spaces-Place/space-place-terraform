@@ -7,7 +7,8 @@ resource "aws_docdb_cluster" "sp-docdb-cluster" {
   backup_retention_period = var.docdb_cluster.backup_retention_period
   preferred_backup_window = var.docdb_cluster.preferred_backup_window
   skip_final_snapshot     = var.docdb_cluster.skip_final_snapshot
-  db_subnet_group_name    = aws_db_subnet_group.doc_subnet_group.name 
+  db_subnet_group_name    = aws_db_subnet_group.doc_subnet_group.name
+  vpc_security_group_ids  = var.vpc-security-group-ids
 }
 
 resource "aws_docdb_cluster_instance" "cluster_instances" {
@@ -18,7 +19,7 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
 }
 
 resource "aws_db_subnet_group" "doc_subnet_group" {
-  subnet_ids = [var.sp-subnet-db-active, var.sp-subnet-db-standby]
+  subnet_ids = var.db-subnet-group-ids
 
   tags = {
     Name = "DB private group"

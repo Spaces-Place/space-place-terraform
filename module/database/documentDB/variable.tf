@@ -1,5 +1,5 @@
-variable "sp-subnet-group-id" {
-  type = string
+variable "vpc-security-group-ids" {
+  type = list(string)
 }
 
 variable "sp-subnet-db-active" {
@@ -8,6 +8,10 @@ variable "sp-subnet-db-active" {
 
 variable "sp-subnet-db-standby" {
   type = string
+}
+
+variable "db-subnet-group-ids" {
+  type = list(string)
 }
 
 variable "environment" {
