@@ -1,13 +1,15 @@
-variable "sp-subnet-group-id" {
-  type = string
+variable "environment" {
+  description = "Deployment environment (e.g., dev, prod)"
+  type        = string
 }
 
-variable "sp-subnet-db-active" {
-  type = string
+variable "tags" {
+  description = "Common tags for all resources"
+  type        = map(string)
 }
 
-variable "sp-subnet-db-standby" {
-  type = string
+variable "associate-subnet-ids" {
+  type = list(string)
 }
 
 variable "rds_instances" {
@@ -24,14 +26,4 @@ variable "rds_instances" {
     subnet_group      = optional(string)
     multi_az          = optional(bool, false)
   }))
-}
-
-variable "environment" {
-  description = "Deployment environment (e.g., dev, prod)"
-  type        = string
-}
-
-variable "tags" {
-  description = "Common tags for all resources"
-  type        = map(string)
 }

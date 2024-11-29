@@ -15,7 +15,7 @@ variable "environment" {
   type = string
 }
 
-variable "worker_instance_type" {
+variable "worker-instance-type" {
   type = string
 }
 
@@ -24,18 +24,10 @@ variable "eks_version" {
   type    = string
 }
 
-variable "sp-subnet-control-a-id" {
-  type = string
+variable "sp-subnet-control-ids" {
+  type = list(string)
 }
 
-variable "sp-subnet-control-b-id" {
-  type = string
-}
-
-variable "sp-subnet-data-a-id" {
-  type = string
-}
-
-variable "sp-subnet-data-b-id" {
-  type = string
+variable "sp-subnet-data-ids" {
+  type = list(string)
 }

@@ -50,11 +50,11 @@ resource "aws_subnet" "sp-subnet-data-a" {
   availability_zone = local.az_a
 
   tags = {
-    Name        = "${var.environment}-sp-subnet-data-a"
-    Environment = var.environment
-    Project     = var.tags["Project"]
+    Name                              = "${var.environment}-sp-subnet-data-a"
+    Environment                       = var.environment
+    Project                           = var.tags["Project"]
     "kubernetes.io/role/internal-elb" = 1
-    Owner       = var.tags["Owner"]
+    Owner                             = var.tags["Owner"]
   }
 }
 
@@ -64,11 +64,11 @@ resource "aws_subnet" "sp-subnet-data-b" {
   availability_zone = local.az_b
 
   tags = {
-    Name        = "${var.environment}-sp-subnet-data-b"
-    Environment = var.environment
-    Project     = var.tags["Project"]
+    Name                              = "${var.environment}-sp-subnet-data-b"
+    Environment                       = var.environment
+    Project                           = var.tags["Project"]
     "kubernetes.io/role/internal-elb" = 1
-    Owner       = var.tags["Owner"]
+    Owner                             = var.tags["Owner"]
   }
 }
 

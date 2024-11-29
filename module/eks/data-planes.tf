@@ -40,8 +40,8 @@ resource "aws_eks_node_group" "sp-eks-node-group" {
   node_role_arn   = aws_iam_role.nodes.arn
 
   subnet_ids = [
-    var.sp-subnet-data-a-id,
-    var.sp-subnet-data-b-id
+    var.sp-subnet-data-ids[0],
+    var.sp-subnet-data-ids[1]
   ]
 
   capacity_type  = "ON_DEMAND"

@@ -1,5 +1,12 @@
 provider "aws" {
   region = "ap-northeast-2"
+
+  default_tags {
+    tags = {
+      environment = var.environment
+      Owner       = "space-place"
+    }
+  }
 }
 
 terraform {
@@ -15,34 +22,27 @@ terraform {
 
 module "vpc" {
   source            = "./module/network/vpc"
-  sp-vpc-cidr-block = var.environment == "dev" ? var.dev-sp-vpc-cidr-block : var.prod-sp-vpc-cidr-block
-  tags              = var.tags
   environment       = var.environment
+  tags              = var.tags
+  sp-vpc-cidr-block = var.environment == "dev" ? var.dev-sp-vpc-cidr-block : var.prod-sp-vpc-cidr-block
 }
 
 module "igw" {
   source      = "./module/network/igw"
-  sp-vpc-id   = module.vpc.sp-vpc-id
   environment = var.environment
   tags        = var.tags
+  sp-vpc-id   = module.vpc.sp-vpc-id
 }
 
 module "route" {
-  source                  = "./module/network/route"
-  environment             = var.environment
-  tags                    = var.tags
-  sp-vpc-id               = module.vpc.sp-vpc-id
-  sp-nat-id               = module.nat.sp-nat-id
-  sp-igw-id               = module.igw.igw_id
-  sp-vpc-cidr-block       = module.vpc.sp-vpc-cidr-block
-  sp-subnet-control-a-id  = module.subnet.subnet_ids["control-a"]
-  sp-subnet-control-b-id  = module.subnet.subnet_ids["control-b"]
-  sp-subnet-data-a-id     = module.subnet.subnet_ids["data-a"]
-  sp-subnet-data-b-id     = module.subnet.subnet_ids["data-b"]
-  sp-subnet-db-active-id  = module.subnet.subnet_ids["db-active"]
-  sp-subnet-db-standby-id = module.subnet.subnet_ids["db-standby"]
-  sp-subnet-nat-id        = module.subnet.subnet_ids["nat"]
-  sp-subnet-public-id     = module.subnet.subnet_ids["public"]
+  source            = "./module/network/route"
+  environment       = var.environment
+  tags              = var.tags
+  vpc-id            = module.vpc.sp-vpc-id
+  nat-id            = module.nat.sp-nat-id
+  igw-id            = module.igw.igw_id
+  sp-vpc-cidr-block = module.vpc.sp-vpc-cidr-block
+  subnet-ids        = module.subnet.subnet_ids
 }
 
 module "nat" {
@@ -54,10 +54,10 @@ module "nat" {
 
 module "security-group" {
   source            = "./module/network/security-group"
-  sp-vpc-id         = module.vpc.sp-vpc-id
-  tags              = var.tags
-  sp-vpc-cidr-block = module.vpc.sp-vpc-cidr-block
   environment       = var.environment
+  tags              = var.tags
+  sp-vpc-id         = module.vpc.sp-vpc-id
+  sp-vpc-cidr-block = module.vpc.sp-vpc-cidr-block
 }
 
 module "subnet" {
@@ -71,38 +71,33 @@ module "rds" {
   source               = "./module/database/rds"
   environment          = var.environment
   tags                 = var.tags
-  sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
-  sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
-  sp-subnet-group-id   = module.subnet.sp-subnet-group-rds.id
+  associate-subnet-ids = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
   rds_instances        = var.rds_instances
 }
 
 module "documentDB" {
-  source               = "./module/database/documentDB"
-  environment          = var.environment
-  tags                 = var.tags
-  sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
-  sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
-  db-subnet-group-ids = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
-  vpc-security-group-ids  = module.security-group.sp-docdb-security-group-ids
-  docdb_cluster        = var.docdb_cluster
+  source                 = "./module/database/documentDB"
+  environment            = var.environment
+  tags                   = var.tags
+  db-subnet-group-ids    = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
+  vpc-security-group-ids = module.security-group.sp-docdb-security-group-ids
+  docdb_cluster          = var.docdb_cluster
+  docdb_instance         = var.docdb_instance
 }
 
 module "eks" {
-  source                 = "./module/eks"
-  sp-vpc-id              = module.vpc.sp-vpc-id
-  worker_instance_type   = var.worker_instance_type
-  sp-sg-cluster          = module.security-group.sp-security-group-for-cluster-id
-  environment            = var.environment
-  sp-subnet-control-a-id = module.subnet.subnet_ids["control-a"]
-  sp-subnet-control-b-id = module.subnet.subnet_ids["control-b"]
-  sp-subnet-data-a-id    = module.subnet.subnet_ids["data-a"]
-  sp-subnet-data-b-id    = module.subnet.subnet_ids["data-b"]
-  tags                   = var.tags
+  source                = "./module/eks"
+  sp-vpc-id             = module.vpc.sp-vpc-id
+  worker-instance-type  = var.worker_instance_type
+  sp-sg-cluster         = module.security-group.sp-security-group-for-cluster-id
+  environment           = var.environment
+  sp-subnet-control-ids = [module.subnet.subnet_ids["control-a"], module.subnet.subnet_ids["control-b"]]
+  sp-subnet-data-ids    = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
+  tags                  = var.tags
 }
 
 module "ec2" {
-  source                 = "./module/ec2"
-  sp-subnet-public-id    = module.subnet.subnet_ids["public"]
-  web_sg_id              = module.security-group.web-sg-id 
+  source              = "./module/ec2"
+  sp-subnet-public-id = module.subnet.subnet_ids["public"]
+  web_sg_id           = module.security-group.web-sg-id
 }

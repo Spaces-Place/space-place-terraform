@@ -31,9 +31,11 @@ resource "aws_eks_cluster" "sp-eks" {
     endpoint_private_access = var.environment == "prod" ? true : false
     endpoint_public_access  = var.environment == "dev" ? true : false
 
+    security_group_ids = []
+
     subnet_ids = [
-      var.sp-subnet-control-a-id,
-      var.sp-subnet-control-b-id
+      var.sp-subnet-control-ids[0],
+      var.sp-subnet-control-ids[1]
     ]
   }
 
@@ -43,6 +45,7 @@ resource "aws_eks_cluster" "sp-eks" {
   }
 
   depends_on = [aws_iam_role_policy_attachment.eks]
+
   tags = {
     Name        = "${var.environment}-sp-eks"
     Environment = var.environment

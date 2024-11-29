@@ -15,7 +15,7 @@ output "document-sg-id" {
 }
 
 output "sp-docdb-security-group-ids" {
-  value = [aws_security_group.cluster-sg.id] 
+  value = [aws_security_group.cluster-sg.id]
 }
 
 output "sp-security-group-for-cluster-id" {
