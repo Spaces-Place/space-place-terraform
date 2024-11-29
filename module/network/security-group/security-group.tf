@@ -46,9 +46,6 @@ resource "aws_security_group" "web-sg" {
 
   tags = {
     Name        = "${var.environment}-sp-sg-web"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
 
@@ -65,9 +62,6 @@ resource "aws_security_group" "rds-sg" {
 
   tags = {
     Name        = "${var.environment}-sp-rds-sg"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
 
@@ -83,9 +77,6 @@ resource "aws_security_group" "document-sg" {
 
   tags = {
     Name        = "${var.environment}-sp-document-sg"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
 
@@ -101,8 +92,5 @@ resource "aws_security_group" "cluster-sg" {
 
   tags = {
     Name        = "${var.environment}-sp-cluster-sg"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }

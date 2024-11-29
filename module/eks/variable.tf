@@ -1,17 +1,12 @@
+variable "environment" {
+  type = string
+}
+
 variable "sp-vpc-id" {
   type = string
 }
 
 variable "sp-sg-cluster" {
-  type = string
-}
-
-variable "tags" {
-  description = "Common tags for all resources"
-  type        = map(string)
-}
-
-variable "environment" {
   type = string
 }
 

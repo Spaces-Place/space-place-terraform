@@ -4,10 +4,7 @@ resource "aws_vpc" "sp-vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name        = "${var.environment}-sp-vpc"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
+    Name = "${var.environment}-sp-vpc"
   }
 }
 

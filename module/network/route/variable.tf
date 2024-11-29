@@ -3,11 +3,6 @@ variable "environment" {
   type        = string
 }
 
-variable "tags" {
-  description = "Common tags for all resources"
-  type        = map(string)
-}
-
 variable "vpc-id" {
   type = string
 }

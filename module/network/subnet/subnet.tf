@@ -9,10 +9,7 @@ resource "aws_subnet" "sp-subnet-public" {
   availability_zone = local.az_a
 
   tags = {
-    Name        = "${var.environment}-sp-subnet-public-a"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
+    Name = "${var.environment}-sp-subnet-public-a"
   }
 }
 
@@ -23,10 +20,7 @@ resource "aws_subnet" "sp-subnet-control-a" {
   availability_zone = local.az_a
 
   tags = {
-    Name        = "${var.environment}-sp-subnet-control-a"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
+    Name = "${var.environment}-sp-subnet-control-a"
   }
 }
 
@@ -37,10 +31,7 @@ resource "aws_subnet" "sp-subnet-control-b" {
   availability_zone = local.az_b
 
   tags = {
-    Name        = "${var.environment}-sp-subnet-control-b"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
+    Name = "${var.environment}-sp-subnet-control-b"
   }
 }
 
@@ -51,10 +42,7 @@ resource "aws_subnet" "sp-subnet-data-a" {
 
   tags = {
     Name                              = "${var.environment}-sp-subnet-data-a"
-    Environment                       = var.environment
-    Project                           = var.tags["Project"]
     "kubernetes.io/role/internal-elb" = 1
-    Owner                             = var.tags["Owner"]
   }
 }
 
@@ -65,10 +53,7 @@ resource "aws_subnet" "sp-subnet-data-b" {
 
   tags = {
     Name                              = "${var.environment}-sp-subnet-data-b"
-    Environment                       = var.environment
-    Project                           = var.tags["Project"]
     "kubernetes.io/role/internal-elb" = 1
-    Owner                             = var.tags["Owner"]
   }
 }
 
@@ -78,10 +63,7 @@ resource "aws_subnet" "sp-subnet-db-active" {
   availability_zone = local.az_a
 
   tags = {
-    Name        = "${var.environment}-sp-subnet-db-active"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
+    Name = "${var.environment}-sp-subnet-db-active"
   }
 }
 
@@ -91,10 +73,7 @@ resource "aws_subnet" "sp-subnet-db-standby" {
   availability_zone = local.az_b
 
   tags = {
-    Name        = "${var.environment}-sp-subnet-db-standby"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
+    Name = "${var.environment}-sp-subnet-db-standby"
   }
 }
 
@@ -104,9 +83,6 @@ resource "aws_subnet" "sp-subnet-nat" {
   availability_zone = local.az_b
 
   tags = {
-    Name        = "${var.environment}-sp-subnet-nat"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
+    Name = "${var.environment}-sp-subnet-nat"
   }
 }

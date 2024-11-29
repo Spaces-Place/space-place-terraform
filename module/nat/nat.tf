@@ -1,10 +1,7 @@
 resource "aws_eip" "sp-eip-nat" {
 
   tags = {
-    Name        = "${var.environment}-sp-eip"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
+    Name = "${var.environment}-sp-eip"
   }
 }
 
@@ -15,10 +12,7 @@ resource "aws_nat_gateway" "sp-nat" {
   connectivity_type = "public" # NAT Gateway 연결 유형 (public 또는 private)
 
   tags = {
-    Name        = "${var.environment}-sp-nat"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
+    Name = "${var.environment}-sp-nat"
   }
 }
 

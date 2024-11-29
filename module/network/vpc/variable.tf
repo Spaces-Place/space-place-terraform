@@ -3,11 +3,6 @@ variable "sp-vpc-cidr-block" {
   type        = string
 }
 
-variable "tags" {
-  description = "Common tags for all resources"
-  type        = map(string)
-}
-
 variable "environment" {
   type = string
 }

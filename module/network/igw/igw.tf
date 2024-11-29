@@ -3,8 +3,5 @@ resource "aws_internet_gateway" "igw" {
 
   tags = {
     Name        = "${var.environment}-sp-igw"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }

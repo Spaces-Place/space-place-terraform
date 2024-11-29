@@ -23,21 +23,18 @@ terraform {
 module "vpc" {
   source            = "./module/network/vpc"
   environment       = var.environment
-  tags              = var.tags
   sp-vpc-cidr-block = var.environment == "dev" ? var.dev-sp-vpc-cidr-block : var.prod-sp-vpc-cidr-block
 }
 
 module "igw" {
   source      = "./module/network/igw"
   environment = var.environment
-  tags        = var.tags
   sp-vpc-id   = module.vpc.sp-vpc-id
 }
 
 module "route" {
   source         = "./module/network/route"
   environment    = var.environment
-  tags           = var.tags
   vpc-id         = module.vpc.sp-vpc-id
   nat-id         = module.nat.sp-nat-id
   igw-id         = module.igw.igw_id
@@ -48,14 +45,12 @@ module "route" {
 module "nat" {
   source           = "./module/nat"
   environment      = var.environment
-  tags             = var.tags
   sp-nat-subnet-id = module.subnet.subnet_ids.nat
 }
 
 module "security-group" {
   source            = "./module/network/security-group"
   environment       = var.environment
-  tags              = var.tags
   sp-vpc-id         = module.vpc.sp-vpc-id
   sp-vpc-cidr-block = module.vpc.sp-vpc-cidr-block
 }
@@ -64,13 +59,11 @@ module "subnet" {
   source      = "./module/network/subnet"
   web_vpc_id  = module.vpc.sp-vpc-id
   environment = var.environment
-  tags        = var.tags
 }
 
 module "rds" {
   source               = "./module/database/rds"
   environment          = var.environment
-  tags                 = var.tags
   associate-subnet-ids = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
   rds_instances        = var.rds_instances
 }
@@ -78,7 +71,6 @@ module "rds" {
 module "documentDB" {
   source                 = "./module/database/documentDB"
   environment            = var.environment
-  tags                   = var.tags
   db-subnet-group-ids    = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
   vpc-security-group-ids = module.security-group.sp-docdb-security-group-ids
   docdb_cluster          = var.docdb_cluster
@@ -93,7 +85,6 @@ module "eks" {
   environment           = var.environment
   sp-subnet-control-ids = [module.subnet.subnet_ids["control-a"], module.subnet.subnet_ids["control-b"]]
   sp-subnet-data-ids    = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
-  tags                  = var.tags
 }
 
 module "ec2" {

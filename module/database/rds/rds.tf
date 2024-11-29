@@ -18,10 +18,7 @@ resource "aws_db_instance" "sp-rds" {
   publicly_accessible = var.environment == "dev" ? true : false
 
   tags = {
-    Name        = "${var.environment}-sp-rds"
-    Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
+    Name = "${var.environment}-sp-rds"
   }
 }
 
