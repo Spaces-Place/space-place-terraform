@@ -23,7 +23,7 @@ terraform {
 module "vpc" {
   source            = "./module/network/vpc"
   environment       = var.environment
-  sp-vpc-cidr-block = var.environment == "dev" ? var.dev-sp-vpc-cidr-block : var.prod-sp-vpc-cidr-block
+  sp-vpc-cidr-block = var.vpc-cidr-block
 }
 
 module "igw" {
@@ -65,6 +65,7 @@ module "rds" {
   source               = "./module/database/rds"
   environment          = var.environment
   associate-subnet-ids = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
+  security-group-ids   = module.security-group.rds-security-group-ids
   rds_instances        = var.rds_instances
 }
 

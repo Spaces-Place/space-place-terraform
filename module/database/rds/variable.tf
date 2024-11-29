@@ -22,3 +22,7 @@ variable "rds_instances" {
     multi_az          = optional(bool, false)
   }))
 }
+
+variable "security-group-ids" {
+  type = list(string)
+}

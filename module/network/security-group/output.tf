@@ -14,8 +14,12 @@ output "document-sg-id" {
   value = aws_security_group.document-sg.id
 }
 
+output "rds-security-group-ids" {
+  value = []
+}
+
 output "sp-docdb-security-group-ids" {
-  value = [aws_security_group.cluster-sg.id]
+  value = [aws_security_group.cluster-sg.id, aws_security_group.rds-sg]
 }
 
 output "sp-security-group-for-cluster-id" {
