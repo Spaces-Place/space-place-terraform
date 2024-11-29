@@ -35,14 +35,14 @@ module "igw" {
 }
 
 module "route" {
-  source            = "./module/network/route"
-  environment       = var.environment
-  tags              = var.tags
-  vpc-id            = module.vpc.sp-vpc-id
-  nat-id            = module.nat.sp-nat-id
-  igw-id            = module.igw.igw_id
-  sp-vpc-cidr-block = module.vpc.sp-vpc-cidr-block
-  subnet-ids        = module.subnet.subnet_ids
+  source         = "./module/network/route"
+  environment    = var.environment
+  tags           = var.tags
+  vpc-id         = module.vpc.sp-vpc-id
+  nat-id         = module.nat.sp-nat-id
+  igw-id         = module.igw.igw_id
+  vpc-cidr-block = module.vpc.sp-vpc-cidr-block
+  subnet-ids     = module.subnet.subnet_ids
 }
 
 module "nat" {

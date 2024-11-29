@@ -3,7 +3,7 @@ resource "aws_route_table" "sp-private-rt" {
   vpc_id = var.vpc-id
 
   route {
-    cidr_block = var.sp-vpc-cidr-block
+    cidr_block = var.vpc-cidr-block
     gateway_id = "local"
   }
 
@@ -21,7 +21,7 @@ resource "aws_route_table" "sp-public-rt" {
   }
 
   route {
-    cidr_block = var.sp-vpc-cidr-block
+    cidr_block = var.vpc-cidr-block
     gateway_id = "local"
   }
 
@@ -42,7 +42,7 @@ resource "aws_route_table" "sp-igw-rt" {
   }
 
   route {
-    cidr_block = var.sp-vpc-cidr-block
+    cidr_block = var.vpc-cidr-block
     gateway_id = "local"
   }
 

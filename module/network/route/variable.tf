@@ -20,7 +20,7 @@ variable "igw-id" {
   type = string
 }
 
-variable "sp-vpc-cidr-block" {
+variable "vpc-cidr-block" {
   type = string
 }
 
