@@ -19,7 +19,7 @@ output "rds-security-group-ids" {
 }
 
 output "sp-docdb-security-group-ids" {
-  value = [aws_security_group.cluster-sg.id, aws_security_group.rds-sg]
+  value = [aws_security_group.cluster-sg.id, aws_security_group.rds-sg.id]
 }
 
 output "sp-security-group-for-cluster-id" {
