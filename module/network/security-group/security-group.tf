@@ -45,7 +45,7 @@ resource "aws_security_group" "web-sg" {
   }
 
   tags = {
-    Name        = "${var.environment}-sp-sg-web"
+    Name = "${var.environment}-sp-sg-web"
   }
 }
 
@@ -61,7 +61,7 @@ resource "aws_security_group" "rds-sg" {
   }
 
   tags = {
-    Name        = "${var.environment}-sp-rds-sg"
+    Name = "${var.environment}-sp-rds-sg"
   }
 }
 
@@ -76,7 +76,7 @@ resource "aws_security_group" "document-sg" {
   }
 
   tags = {
-    Name        = "${var.environment}-sp-document-sg"
+    Name = "${var.environment}-sp-document-sg"
   }
 }
 
@@ -91,6 +91,6 @@ resource "aws_security_group" "cluster-sg" {
   }
 
   tags = {
-    Name        = "${var.environment}-sp-cluster-sg"
+    Name = "${var.environment}-sp-cluster-sg"
   }
 }

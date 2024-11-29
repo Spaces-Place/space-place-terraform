@@ -47,6 +47,6 @@ resource "aws_eks_cluster" "sp-eks" {
   depends_on = [aws_iam_role_policy_attachment.eks]
 
   tags = {
-    Name        = "${var.environment}-sp-eks"
+    Name = "${var.environment}-sp-eks"
   }
 }

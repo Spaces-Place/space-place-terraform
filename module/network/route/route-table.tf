@@ -26,7 +26,7 @@ resource "aws_route_table" "sp-public-rt" {
   }
 
   tags = {
-    Name        = "${var.environment}-sp-public-rt"
+    Name = "${var.environment}-sp-public-rt"
   }
 }
 
@@ -44,6 +44,6 @@ resource "aws_route_table" "sp-igw-rt" {
   }
 
   tags = {
-    Name        = "${var.environment}-sp-igw-rt"
+    Name = "${var.environment}-sp-igw-rt"
   }
 }
