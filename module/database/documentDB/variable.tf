@@ -1,3 +1,7 @@
+variable "docdb-associate-subnet-ids" {
+  type = list(string)
+}
+
 variable "sp-subnet-db-active" {
   type = string
 }

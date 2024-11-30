@@ -18,7 +18,7 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
 }
 
 resource "aws_db_subnet_group" "doc_subnet_group" {
-  subnet_ids = [var.sp-subnet-db-active, var.sp-subnet-db-standby]
+  subnet_ids = var.docdb-associate-subnet-ids
 
   tags = {
     Name = "DB private group"
