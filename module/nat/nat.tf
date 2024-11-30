@@ -4,7 +4,6 @@ resource "aws_eip" "sp-eip-nat" {
     Name        = "${var.environment}-sp-eip"
     Environment = var.environment
     Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
 
@@ -18,7 +17,6 @@ resource "aws_nat_gateway" "sp-nat" {
     Name        = "${var.environment}-sp-nat"
     Environment = var.environment
     Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
 

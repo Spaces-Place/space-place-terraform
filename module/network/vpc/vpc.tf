@@ -6,8 +6,6 @@ resource "aws_vpc" "sp-vpc" {
   tags = {
     Name        = "${var.environment}-sp-vpc"
     Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
 
