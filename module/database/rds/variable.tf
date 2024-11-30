@@ -1,7 +1,3 @@
-variable "sp-subnet-group-id" {
-  type = string
-}
-
 variable "sp-subnet-db-active" {
   type = string
 }

@@ -42,7 +42,7 @@ resource "aws_ssm_parameter" "db-name" {
   name        = "${upper(split("-", each.value.identifier)[0])}_DB_NAME"
   value       = each.value.db_name
   type        = "String"
-  description = "Endpoint for RDS instance ${each.value.identifier}"
+  description = "database name for RDS instance ${each.value.identifier}"
   overwrite   = true
 }
 
@@ -52,7 +52,7 @@ resource "aws_ssm_parameter" "db-username" {
   name        = "${upper(split("-", each.value.identifier)[0])}_DB_USERNAME"
   value       = each.value.username
   type        = "String"
-  description = "Endpoint for RDS instance ${each.value.identifier}"
+  description = "Username for RDS instance ${each.value.identifier}"
   overwrite   = true
 }
 
@@ -62,6 +62,6 @@ resource "aws_ssm_parameter" "db-password" {
   name        = "${upper(split("-", each.value.identifier)[0])}_DB_PASSWORD"
   value       = each.value.password
   type        = "SecureString"
-  description = "Endpoint for RDS instance ${each.value.identifier}"
+  description = "Password for RDS instance ${each.value.identifier}"
   overwrite   = true
 }

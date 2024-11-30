@@ -15,7 +15,7 @@ terraform {
 
 module "vpc" {
   source            = "./module/network/vpc"
-  sp-vpc-cidr-block = var.environment == "dev" ? var.dev-sp-vpc-cidr-block : var.prod-sp-vpc-cidr-block
+  sp-vpc-cidr-block = var.sp-vpc-cidr-block
   tags              = var.tags
   environment       = var.environment
 }
@@ -75,7 +75,6 @@ module "rds" {
   tags                 = var.tags
   sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
   sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
-  sp-subnet-group-id   = module.subnet.sp-subnet-group-rds.id
   rds_instances        = var.rds_instances
 }
 
@@ -85,12 +84,12 @@ module "documentDB" {
   tags                 = var.tags
   sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
   sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
-  sp-subnet-group-id   = module.subnet.sp-subnet-group-rds.id
   docdb_cluster        = var.docdb_cluster
 }
 
 module "eks" {
   source                 = "./module/eks"
+  sp-vpc-id         = module.vpc.sp-vpc-id
   worker_instance_type   = var.worker_instance_type
   sp-sg-cluster          = module.security-group.cluster-sg-id
   environment            = var.environment

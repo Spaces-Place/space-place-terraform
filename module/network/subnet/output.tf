@@ -11,7 +11,3 @@ output "subnet_ids" {
   }
   description = "IDs of the created subnets"
 }
-
-output "sp-subnet-group-rds" {
-  value = aws_db_subnet_group.sp-subnet-group-rds
-}

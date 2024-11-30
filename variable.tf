@@ -13,13 +13,7 @@ variable "worker_instance_type" {
   type        = string
 }
 
-variable "dev-sp-vpc-cidr-block" {
-  description = "vpc cidr block"
-  type        = string
-  default     = null
-}
-
-variable "prod-sp-vpc-cidr-block" {
+variable "sp-vpc-cidr-block" {
   description = "vpc cidr block"
   type        = string
   default     = null

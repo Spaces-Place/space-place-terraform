@@ -1,7 +1,7 @@
 resource "aws_vpc" "sp-vpc" {
-  cidr_block           = var.sp-vpc-cidr-block
   enable_dns_support   = true
   enable_dns_hostnames = true
+  cidr_block           = var.sp-vpc-cidr-block
 
   tags = {
     Name        = "${var.environment}-sp-vpc"
