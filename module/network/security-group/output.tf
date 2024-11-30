@@ -1,7 +1,19 @@
-output "web_sg_id" {
-  value = aws_security_group.web.id
+output "web-sg-id" {
+  value = aws_security_group.web-sg.id
 }
 
-output "sg_for_rds_id" {
-  value = aws_security_group.sg_for_rds.id
+output "rds-sg-name" {
+  value = aws_security_group.rds-sg.name
+}
+
+output "rds-sg-id" {
+  value = aws_security_group.rds-sg.id
+}
+
+output "document-sg-id" {
+  value = aws_security_group.document-sg.id
+}
+
+output "cluster-sg-id" {
+  value = aws_security_group.cluster-sg.id
 }

@@ -1,7 +1,8 @@
-output "web_vpc_id" {
-    value = aws_vpc.web.id
+output "sp-vpc-id" {
+  value = aws_vpc.sp-vpc.id
 }
 
-output "web_vpc_cidr_block" {
-    value = aws_vpc.web.cidr_block
+output "sp-vpc-cidr-block" {
+  value = aws_vpc.sp-vpc.cidr_block
 }
+

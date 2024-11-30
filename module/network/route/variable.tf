@@ -1,23 +1,57 @@
-variable "public_subnet_a_id" {
+variable "environment" {
+  description = "Deployment environment (e.g., dev, prod)"
+  type        = string
+}
+
+variable "tags" {
+  description = "Common tags for all resources"
+  type        = map(string)
+}
+
+variable "sp-vpc-id" {
   type = string
 }
 
-variable "private_subnet_a_id" {
+variable "sp-nat-id" {
   type = string
 }
 
-variable "private_subnet_c_id" {
+variable "sp-vpc-cidr-block" {
   type = string
 }
 
-variable "web_vpc_id" {
+variable "sp-subnet-control-a-id" {
   type = string
 }
 
-variable "igw_id" {
+variable "sp-subnet-control-b-id" {
   type = string
 }
 
-variable "web_vpc_cidr_block" {
+variable "sp-subnet-data-a-id" {
+  type = string
+}
+
+variable "sp-subnet-data-b-id" {
+  type = string
+}
+
+variable "sp-subnet-db-active-id" {
+  type = string
+}
+
+variable "sp-subnet-db-standby-id" {
+  type = string
+}
+
+variable "sp-subnet-nat-id" {
+  type = string
+}
+
+variable "sp-subnet-public-id" {
+  type = string
+}
+
+variable "sp-igw-id" {
   type = string
 }

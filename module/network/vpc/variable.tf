@@ -1,5 +1,13 @@
-variable "web_vpc_cidr_block" {
-    description = "vpc cidr block"
-    type = string
-    default = "172.16.0.0/16"
+variable "sp-vpc-cidr-block" {
+  description = "vpc cidr block"
+  type        = string
+}
+
+variable "tags" {
+  description = "Common tags for all resources"
+  type        = map(string)
+}
+
+variable "environment" {
+  type = string
 }

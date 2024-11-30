@@ -1,7 +1,3 @@
-variable "sp-vpc-id" {
-  type = string
-}
-
 variable "environment" {
   description = "Deployment environment (e.g., dev, prod)"
   type        = string
@@ -12,6 +8,6 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "sp-vpc-cidr-block" {
+variable "sp-nat-subnet-id" {
   type = string
 }

@@ -1,36 +1,58 @@
 # Route Table
-resource "aws_route_table" "public_route_table" {
-    vpc_id = var.web_vpc_id
+resource "aws_route_table" "sp-private-rt" {
+  vpc_id = var.sp-vpc-id
 
-    route {
-        cidr_block = "0.0.0.0/0"
-        gateway_id = var.igw_id 
-    }
+  route {
+    cidr_block = var.sp-vpc-cidr-block
+    gateway_id = "local"
+  }
 
-    route {
-        cidr_block = var.web_vpc_cidr_block 
-        gateway_id = "local"
-    }
-
-    tags = {
-        Name = "public_route_table"
-    }
+  tags = {
+    Name        = "${var.environment}-sp-private_rt"
+    Environment = var.environment
+    Project     = var.tags["Project"]
+    Owner       = var.tags["Owner"]
+  }
 }
 
-resource "aws_route_table" "private_route_table" {
-    vpc_id = var.web_vpc_id
+resource "aws_route_table" "sp-public-rt" {
+  vpc_id = var.sp-vpc-id
 
-    route {
-        cidr_block = "0.0.0.0/0"
-        gateway_id = var.igw_id 
-    }
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = var.sp-nat-id
+  }
 
-    route {
-        cidr_block = var.web_vpc_cidr_block 
-        gateway_id = "local"
-    }
+  route {
+    cidr_block = var.sp-vpc-cidr-block
+    gateway_id = "local"
+  }
 
-    tags = {
-        Name = "public_route_table"
-    }
+  tags = {
+    Name        = "${var.environment}-sp-public-rt"
+    Environment = var.environment
+    Project     = var.tags["Project"]
+    Owner       = var.tags["Owner"]
+  }
+}
+
+resource "aws_route_table" "sp-igw-rt" {
+  vpc_id = var.sp-vpc-id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = var.sp-igw-id
+  }
+
+  route {
+    cidr_block = var.sp-vpc-cidr-block
+    gateway_id = "local"
+  }
+
+  tags = {
+    Name        = "${var.environment}-sp-igw-rt"
+    Environment = var.environment
+    Project     = var.tags["Project"]
+    Owner       = var.tags["Owner"]
+  }
 }
