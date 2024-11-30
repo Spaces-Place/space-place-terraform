@@ -76,14 +76,15 @@ module "subnet" {
 #  rds_instances        = var.rds_instances
 #}
 
-#module "documentDB" {
-#  source               = "./module/database/documentDB"
-#  environment          = var.environment
-#  tags                 = var.tags
-#  docdb-associate-subnet-ids = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
-#  
-#  docdb_cluster        = var.docdb_cluster
-#}
+module "documentDB" {
+  sp-vpc-id   = module.vpc.sp-vpc-id
+  source               = "./module/database/documentDB"
+  environment          = var.environment
+  tags                 = var.tags
+  eks-additional-security-group-ids = module.eks.eks-additional-security-group-ids
+  docdb-associate-subnet-ids = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
+  docdb_cluster        = var.docdb_cluster
+}
 
 module "eks" {
   source                 = "./module/eks"

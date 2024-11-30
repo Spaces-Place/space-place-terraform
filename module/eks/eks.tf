@@ -65,6 +65,7 @@ resource "aws_eks_cluster" "sp-eks" {
       var.sp-subnet-control-a-id,
       var.sp-subnet-control-b-id
     ]
+    # Additional Security Groups
     security_group_ids = [aws_security_group.eks_control_plane_sg.id]
   }
 

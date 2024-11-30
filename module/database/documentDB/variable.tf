@@ -1,13 +1,13 @@
-variable "docdb-associate-subnet-ids" {
+variable "sp-vpc-id" {
+  type = string
+}
+
+variable "eks-additional-security-group-ids" {
   type = list(string)
 }
 
-variable "sp-subnet-db-active" {
-  type = string
-}
-
-variable "sp-subnet-db-standby" {
-  type = string
+variable "docdb-associate-subnet-ids" {
+  type = list(string)
 }
 
 variable "environment" {
