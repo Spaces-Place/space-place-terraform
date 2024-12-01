@@ -52,6 +52,10 @@ resource "aws_subnet" "sp-subnet-data-a" {
 
   tags = {
     Name        = "${var.environment}-sp-subnet-data-a"
+<<<<<<< Updated upstream
+=======
+    "kubernetes.io/role/internal-elb"  = "1"
+>>>>>>> Stashed changes
     Environment = var.environment
     Project     = var.tags["Project"]
     Owner       = var.tags["Owner"]
@@ -65,6 +69,10 @@ resource "aws_subnet" "sp-subnet-data-b" {
 
   tags = {
     Name        = "${var.environment}-sp-subnet-data-b"
+<<<<<<< Updated upstream
+=======
+    "kubernetes.io/role/internal-elb"  = "1"
+>>>>>>> Stashed changes
     Environment = var.environment
     Project     = var.tags["Project"]
     Owner       = var.tags["Owner"]
