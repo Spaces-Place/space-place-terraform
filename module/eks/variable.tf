@@ -1,3 +1,7 @@
+variable "ssh-key" {
+  type = string
+}
+
 variable "sp-vpc-id" {
   type = string
 }
@@ -37,5 +41,9 @@ variable "sp-subnet-data-a-id" {
 }
 
 variable "sp-subnet-data-b-id" {
+  type = string
+}
+
+variable "sp-subnet-public-id" {
   type = string
 }
