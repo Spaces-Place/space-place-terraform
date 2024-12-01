@@ -51,7 +51,7 @@ resource "aws_subnet" "sp-subnet-data-a" {
 
   tags = {
     Name        = "${var.environment}-sp-subnet-data-a"
-    "kubernetes.io/role/elb"  = "1"
+    "kubernetes.io/role/internal-elb"  = "1"
     Environment = var.environment
     Project     = var.tags["Project"]
     Owner       = var.tags["Owner"]
@@ -65,7 +65,7 @@ resource "aws_subnet" "sp-subnet-data-b" {
 
   tags = {
     Name        = "${var.environment}-sp-subnet-data-b"
-    "kubernetes.io/role/elb"  = "1"
+    "kubernetes.io/role/internal-elb"  = "1"
     Environment = var.environment
     Project     = var.tags["Project"]
     Owner       = var.tags["Owner"]
