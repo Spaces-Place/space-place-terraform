@@ -67,14 +67,14 @@ module "subnet" {
   tags        = var.tags
 }
 
-#module "rds" {
-#  source               = "./module/database/rds"
-#  environment          = var.environment
-#  tags                 = var.tags
-#  sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
-#  sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
-#  rds_instances        = var.rds_instances
-#}
+module "rds" {
+  source               = "./module/database/rds"
+  environment          = var.environment
+  tags                 = var.tags
+  sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
+  sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
+  rds_instances        = var.rds_instances
+}
 
 module "documentDB" {
   sp-vpc-id   = module.vpc.sp-vpc-id
