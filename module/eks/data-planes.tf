@@ -63,7 +63,7 @@ resource "aws_eks_node_group" "sp-general" {
   }
 
   labels = {
-    role = "general"
+    role = "sp-general"
   }
 
   depends_on = [
@@ -112,7 +112,7 @@ resource "aws_eks_node_group" "sp-spot" {
   }
 
   labels = {
-    role = "general"
+    role = "sp-spot"
   }
 
   depends_on = [
@@ -134,7 +134,7 @@ resource "aws_eks_node_group" "sp-spot" {
 resource "aws_eks_node_group" "sp-monitoring" {
   cluster_name    = aws_eks_cluster.sp-eks.name
   version         = var.eks_version
-  node_group_name = "sp-spot"
+  node_group_name = "sp-monitoring"
   node_role_arn   = aws_iam_role.nodes.arn
 
   subnet_ids = [
@@ -161,7 +161,7 @@ resource "aws_eks_node_group" "sp-monitoring" {
   }
 
   labels = {
-    role = "general"
+    role = "sp-monitoring"
   }
 
   depends_on = [
