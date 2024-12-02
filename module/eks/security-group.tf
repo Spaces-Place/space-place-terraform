@@ -15,6 +15,10 @@ resource "aws_security_group" "bastion-sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.environment}-bastion-sg"
+  }
 }
 
 resource "aws_security_group" "eks_control_plane_sg" {

@@ -76,6 +76,10 @@ resource "aws_eks_node_group" "sp-general" {
   lifecycle {
     ignore_changes = [scaling_config[0].desired_size]
   }
+
+  tags = {
+    Name = "${var.environment}-node-group-sp-general"
+  }
 }
 
 resource "aws_eks_node_group" "sp-spot" {
@@ -121,6 +125,10 @@ resource "aws_eks_node_group" "sp-spot" {
   lifecycle {
     ignore_changes = [scaling_config[0].desired_size]
   }
+
+  tags = {
+    Name = "${var.environment}-node-group-sp-spot"
+  }
 }
 
 resource "aws_eks_node_group" "sp-monitoring" {
@@ -165,5 +173,9 @@ resource "aws_eks_node_group" "sp-monitoring" {
   # Allow external changes without Terraform plan difference
   lifecycle {
     ignore_changes = [scaling_config[0].desired_size]
+  }
+
+  tags = {
+    Name = "${var.environment}-node-group-sp-monitoring"
   }
 }

@@ -7,6 +7,10 @@ resource "aws_security_group" "docdb-sg" {
     protocol  = "tcp"
     security_groups = var.eks-additional-security-group-ids
   }
+
+  tags = {
+    Name = "${var.environment}-docdb-sg"
+  }
 }
 
 resource "aws_docdb_cluster" "sp-docdb-cluster" {
@@ -19,6 +23,10 @@ resource "aws_docdb_cluster" "sp-docdb-cluster" {
   skip_final_snapshot     = var.docdb_cluster.skip_final_snapshot
   db_subnet_group_name    = aws_db_subnet_group.doc_subnet_group.name
   vpc_security_group_ids = [aws_security_group.docdb-sg.id]
+
+  tags = {
+    Name = "${var.environment}-docdb-cluster"
+  }
 }
 
 resource "aws_docdb_cluster_instance" "cluster_instances" {
@@ -26,13 +34,17 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
   identifier         = "sp-docdb-instance-${count.index}"
   cluster_identifier = aws_docdb_cluster.sp-docdb-cluster.id
   instance_class     = "db.t3.medium"
+
+  tags = {
+    Name = "${var.environment}-cluster-instances"
+  }
 }
 
 resource "aws_db_subnet_group" "doc_subnet_group" {
   subnet_ids = var.docdb-associate-subnet-ids
 
   tags = {
-    Name = "DB private group"
+    Name = "${var.environment}-doc-subnet-group"
   }
 }
 

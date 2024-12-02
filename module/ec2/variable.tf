@@ -4,6 +4,10 @@ variable "ami_spring_snapshot" {
   default     = "ami-0b326ad288d7c561b"
 }
 
+varialbe "environment" {
+  type = string
+}
+
 variable "ami_worker_node_tier" {
   type        = string
   description = "EC2가 사용할 EC2 등급"

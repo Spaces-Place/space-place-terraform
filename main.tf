@@ -1,5 +1,12 @@
 provider "aws" {
   region = "ap-northeast-2"
+
+  default_tags {
+    tags = {
+      Environment = var.environment
+      Owner = "space-place"
+    }
+  }
 }
 
 terraform {

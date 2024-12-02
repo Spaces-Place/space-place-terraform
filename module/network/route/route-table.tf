@@ -10,8 +10,6 @@ resource "aws_route_table" "sp-private-rt" {
   tags = {
     Name        = "${var.environment}-sp-private_rt"
     Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
 
@@ -31,8 +29,6 @@ resource "aws_route_table" "sp-public-rt" {
   tags = {
     Name        = "${var.environment}-sp-public-rt"
     Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
 
@@ -52,7 +48,5 @@ resource "aws_route_table" "sp-igw-rt" {
   tags = {
     Name        = "${var.environment}-sp-igw-rt"
     Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
