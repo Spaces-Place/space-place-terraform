@@ -39,18 +39,16 @@ data "aws_key_pair" "default_key_pair" {
 resource "aws_instance" "backend" {
   ami                         = data.aws_ami.python_ami.id
   key_name                    = data.aws_key_pair.default_key_pair.key_name
-  instance_type               = "t2.micro"
+  instance_type               = "t3.micro"
   availability_zone           = "ap-northeast-2a"
   security_groups             = [aws_security_group.bastion-sg.id]
   subnet_id                   = var.sp-subnet-public-id
   associate_public_ip_address = true
 
   tags = {
-    Name = "backend"
+    Name = "${var.environment}-bastion"
   }
 }
-
-
 
 resource "aws_eks_cluster" "sp-eks" {
   name     = "${var.environment}-sp-eks"

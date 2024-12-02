@@ -13,6 +13,18 @@ variable "worker_instance_type" {
   type        = string
 }
 
+variable "node-group-sp-general-tier" {
+  type = string
+}
+
+variable "node-group-sp-spot-tier" {
+  type = string
+}
+
+variable "node-group-sp-monitoring-tier" {
+  type = string
+}
+
 variable "sp-vpc-cidr-block" {
   description = "vpc cidr block"
   type        = string

@@ -1,3 +1,15 @@
+variable "node-group-sp-general-tier" {
+  type = string
+}
+
+variable "node-group-sp-spot-tier" {
+  type = string
+}
+
+variable "node-group-sp-monitoring-tier" {
+  type = string
+}
+
 variable "ssh-key" {
   type = string
 }

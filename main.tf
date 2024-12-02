@@ -98,5 +98,8 @@ module "eks" {
   sp-subnet-data-a-id    = module.subnet.subnet_ids["data-a"]
   sp-subnet-data-b-id    = module.subnet.subnet_ids["data-b"]
   sp-subnet-public-id    = module.subnet.subnet_ids["public"]
+  node-group-sp-general-tier = var.node-group-sp-general-tier
+  node-group-sp-spot-tier = var.node-group-sp-spot-tier
+  node-group-sp-monitoring-tier = var.node-group-sp-monitoring-tier 
   tags                   = var.tags
 }
