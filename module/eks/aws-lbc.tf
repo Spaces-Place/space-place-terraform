@@ -56,7 +56,7 @@ resource "helm_release" "aws_lbc" {
 
   set {
     name  = "vpcId"
-    value = var.sp-vpc-id 
+    value = var.sp-vpc-id
   }
 
   set {

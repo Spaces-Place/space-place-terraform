@@ -1,4 +1,4 @@
-resource "aws_security_group_rule" "example" {
+resource "aws_security_group_rule" "sgr-web" {
   type              = "ingress"
   from_port         = 0
   to_port           = 3306

@@ -1,5 +1,12 @@
 provider "aws" {
   region = "ap-northeast-2"
+
+  default_tags {
+    tags = {
+      Environment = var.environment
+      Owner       = "space-place"
+    }
+  }
 }
 
 terraform {
@@ -77,26 +84,29 @@ module "rds" {
 }
 
 module "documentDB" {
-  sp-vpc-id   = module.vpc.sp-vpc-id
-  source               = "./module/database/documentDB"
-  environment          = var.environment
-  tags                 = var.tags
+  sp-vpc-id                         = module.vpc.sp-vpc-id
+  source                            = "./module/database/documentDB"
+  environment                       = var.environment
+  tags                              = var.tags
   eks-additional-security-group-ids = module.eks.eks-additional-security-group-ids
-  docdb-associate-subnet-ids = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
-  docdb_cluster        = var.docdb_cluster
+  docdb-associate-subnet-ids        = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
+  docdb_cluster                     = var.docdb_cluster
 }
 
 module "eks" {
-  source                 = "./module/eks"
-  sp-vpc-id         = module.vpc.sp-vpc-id
-  worker_instance_type   = var.worker_instance_type
-  sp-sg-cluster          = module.security-group.cluster-sg-id
-  ssh-key = "default_key_pair" 
-  environment            = var.environment
-  sp-subnet-control-a-id = module.subnet.subnet_ids["control-a"]
-  sp-subnet-control-b-id = module.subnet.subnet_ids["control-b"]
-  sp-subnet-data-a-id    = module.subnet.subnet_ids["data-a"]
-  sp-subnet-data-b-id    = module.subnet.subnet_ids["data-b"]
-  sp-subnet-public-id    = module.subnet.subnet_ids["public"]
-  tags                   = var.tags
+  source                        = "./module/eks"
+  sp-vpc-id                     = module.vpc.sp-vpc-id
+  worker_instance_type          = var.worker_instance_type
+  sp-sg-cluster                 = module.security-group.cluster-sg-id
+  ssh-key                       = "default_key_pair"
+  environment                   = var.environment
+  sp-subnet-control-a-id        = module.subnet.subnet_ids["control-a"]
+  sp-subnet-control-b-id        = module.subnet.subnet_ids["control-b"]
+  sp-subnet-data-a-id           = module.subnet.subnet_ids["data-a"]
+  sp-subnet-data-b-id           = module.subnet.subnet_ids["data-b"]
+  sp-subnet-public-id           = module.subnet.subnet_ids["public"]
+  node-group-sp-general-tier    = var.node-group-sp-general-tier
+  node-group-sp-spot-tier       = var.node-group-sp-spot-tier
+  node-group-sp-monitoring-tier = var.node-group-sp-monitoring-tier
+  tags                          = var.tags
 }

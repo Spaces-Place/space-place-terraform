@@ -21,6 +21,6 @@ resource "aws_instance" "backend" {
   subnet_id                   = var.public_subnet_a_id
   associate_public_ip_address = true
   tags = {
-    Name = "backend"
+    Name = "${var.environment}-backend"
   }
 }

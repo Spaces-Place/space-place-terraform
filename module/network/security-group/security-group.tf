@@ -15,6 +15,11 @@ resource "aws_default_security_group" "default" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name        = "${var.environment}-sp-sg-default"
+    Environment = var.environment
+  }
 }
 
 resource "aws_security_group" "web-sg" {
@@ -47,8 +52,6 @@ resource "aws_security_group" "web-sg" {
   tags = {
     Name        = "${var.environment}-sp-sg-web"
     Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
 
@@ -84,8 +87,6 @@ resource "aws_security_group" "document-sg" {
   tags = {
     Name        = "${var.environment}-sp-document-sg"
     Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
 
@@ -102,7 +103,5 @@ resource "aws_security_group" "cluster-sg" {
   tags = {
     Name        = "${var.environment}-sp-cluster-sg"
     Environment = var.environment
-    Project     = var.tags["Project"]
-    Owner       = var.tags["Owner"]
   }
 }
