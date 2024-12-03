@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "aws_lbc" {
 }
 
 resource "aws_iam_role" "aws_lbc" {
-  name               = "${var.environment}-${aws_eks_cluster.sp-eks.name}-aws-lbc"
+  name               = "${aws_eks_cluster.sp-eks.name}-aws-lbc"
   assume_role_policy = data.aws_iam_policy_document.aws_lbc.json
 }
 
@@ -56,7 +56,7 @@ resource "helm_release" "aws_lbc" {
 
   set {
     name  = "vpcId"
-    value = var.sp-vpc-id 
+    value = var.sp-vpc-id
   }
 
   set {

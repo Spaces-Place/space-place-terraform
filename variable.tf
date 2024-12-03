@@ -49,12 +49,12 @@ variable "rds_instances" {
 
 variable "docdb_cluster" {
   type = object({
-    cluster_identifier    = string
-    engine                = string
-    master_username       = string
-    master_password       = string
+    cluster_identifier      = string
+    engine                  = string
+    master_username         = string
+    master_password         = string
     backup_retention_period = string
     preferred_backup_window = string
-    skip_final_snapshot     = bool}
+    skip_final_snapshot = bool }
   )
 }

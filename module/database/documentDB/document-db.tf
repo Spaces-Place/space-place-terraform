@@ -2,9 +2,9 @@ resource "aws_security_group" "docdb-sg" {
   vpc_id = var.sp-vpc-id
 
   ingress {
-    from_port = 27017
-    to_port   = 27017
-    protocol  = "tcp"
+    from_port       = 27017
+    to_port         = 27017
+    protocol        = "tcp"
     security_groups = var.eks-additional-security-group-ids
   }
 
@@ -14,15 +14,15 @@ resource "aws_security_group" "docdb-sg" {
 }
 
 resource "aws_docdb_cluster" "sp-docdb-cluster" {
-  cluster_identifier      = var.docdb_cluster.cluster_identifier     
-  engine                  = var.docdb_cluster.engine                 
-  master_username         = var.docdb_cluster.master_username        
-  master_password         = var.docdb_cluster.master_password        
+  cluster_identifier      = var.docdb_cluster.cluster_identifier
+  engine                  = var.docdb_cluster.engine
+  master_username         = var.docdb_cluster.master_username
+  master_password         = var.docdb_cluster.master_password
   backup_retention_period = var.docdb_cluster.backup_retention_period
   preferred_backup_window = var.docdb_cluster.preferred_backup_window
   skip_final_snapshot     = var.docdb_cluster.skip_final_snapshot
   db_subnet_group_name    = aws_db_subnet_group.doc_subnet_group.name
-  vpc_security_group_ids = [aws_security_group.docdb-sg.id]
+  vpc_security_group_ids  = [aws_security_group.docdb-sg.id]
 
   tags = {
     Name = "${var.environment}-docdb-cluster"
@@ -59,15 +59,15 @@ resource "aws_ssm_parameter" "doc_endpoints" {
 
 
 resource "aws_ssm_parameter" "db-username" {
-  name        = "${upper(split("-", var.docdb_cluster.cluster_identifier)[0])}_DB_USERNAME"
-  value       = var.docdb_cluster.master_username
-  type        = "String"
-  overwrite   = true
+  name      = "${upper(split("-", var.docdb_cluster.cluster_identifier)[0])}_DB_USERNAME"
+  value     = var.docdb_cluster.master_username
+  type      = "String"
+  overwrite = true
 }
 
 resource "aws_ssm_parameter" "db-password" {
-  name        = "${upper(split("-", var.docdb_cluster.cluster_identifier)[0])}_DB_PASSWORD"
-  value       = var.docdb_cluster.master_password
-  type        = "SecureString"
-  overwrite   = true
+  name      = "${upper(split("-", var.docdb_cluster.cluster_identifier)[0])}_DB_PASSWORD"
+  value     = var.docdb_cluster.master_password
+  type      = "SecureString"
+  overwrite = true
 }

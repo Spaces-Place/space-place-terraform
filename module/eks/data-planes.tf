@@ -44,13 +44,12 @@ resource "aws_eks_node_group" "sp-general" {
     var.sp-subnet-data-b-id
   ]
 
-  capacity_type  = "ON_DEMAND"
   instance_types = [var.node-group-sp-general-tier]
 
   scaling_config {
     desired_size = 2
     min_size     = 2
-    max_size     = 10
+    max_size     = 5
   }
 
   update_config {
@@ -58,7 +57,7 @@ resource "aws_eks_node_group" "sp-general" {
   }
 
   remote_access {
-    ec2_ssh_key            = var.ssh-key
+    ec2_ssh_key               = var.ssh-key
     source_security_group_ids = [aws_security_group.bastion-sg.id]
   }
 
@@ -97,7 +96,7 @@ resource "aws_eks_node_group" "sp-spot" {
   instance_types = [var.node-group-sp-spot-tier]
 
   scaling_config {
-    desired_size = 1
+    desired_size = 2
     min_size     = 1
     max_size     = 15
   }
@@ -107,7 +106,7 @@ resource "aws_eks_node_group" "sp-spot" {
   }
 
   remote_access {
-    ec2_ssh_key            = var.ssh-key
+    ec2_ssh_key               = var.ssh-key
     source_security_group_ids = [aws_security_group.bastion-sg.id]
   }
 
@@ -156,7 +155,7 @@ resource "aws_eks_node_group" "sp-monitoring" {
   }
 
   remote_access {
-    ec2_ssh_key            = var.ssh-key
+    ec2_ssh_key               = var.ssh-key
     source_security_group_ids = [aws_security_group.bastion-sg.id]
   }
 
