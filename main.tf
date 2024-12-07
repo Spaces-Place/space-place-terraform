@@ -75,14 +75,14 @@ module "subnet" {
 }
 
 module "rds" {
-  source               = "./module/database/rds"
+  source                            = "./module/database/rds"
   sp-vpc-id                         = module.vpc.sp-vpc-id
-  environment          = var.environment
-  tags                 = var.tags
+  environment                       = var.environment
+  tags                              = var.tags
   eks-additional-security-group-ids = module.eks.eks-additional-security-group-ids
-  sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
-  sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
-  rds_instances        = var.rds_instances
+  sp-subnet-db-active               = module.subnet.subnet_ids["db-active"]
+  sp-subnet-db-standby              = module.subnet.subnet_ids["db-standby"]
+  rds_instances                     = var.rds_instances
 }
 
 module "documentDB" {
@@ -99,7 +99,6 @@ module "eks" {
   source                        = "./module/eks"
   sp-vpc-id                     = module.vpc.sp-vpc-id
   worker_instance_type          = var.worker_instance_type
-  sp-sg-cluster                 = module.security-group.cluster-sg-id
   ssh-key                       = "default_key_pair"
   environment                   = var.environment
   sp-subnet-control-a-id        = module.subnet.subnet_ids["control-a"]
