@@ -76,17 +76,19 @@ module "subnet" {
 
 module "rds" {
   source               = "./module/database/rds"
+  sp-vpc-id                         = module.vpc.sp-vpc-id
   environment          = var.environment
   tags                 = var.tags
+  eks-additional-security-group-ids = module.eks.eks-additional-security-group-ids
   sp-subnet-db-active  = module.subnet.subnet_ids["db-active"]
   sp-subnet-db-standby = module.subnet.subnet_ids["db-standby"]
   rds_instances        = var.rds_instances
 }
 
 module "documentDB" {
-  sp-vpc-id                         = module.vpc.sp-vpc-id
   source                            = "./module/database/documentDB"
   environment                       = var.environment
+  sp-vpc-id                         = module.vpc.sp-vpc-id
   tags                              = var.tags
   eks-additional-security-group-ids = module.eks.eks-additional-security-group-ids
   docdb-associate-subnet-ids        = [module.subnet.subnet_ids["data-a"], module.subnet.subnet_ids["data-b"]]
