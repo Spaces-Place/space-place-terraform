@@ -99,7 +99,6 @@ module "eks" {
   source                        = "./module/eks"
   sp-vpc-id                     = module.vpc.sp-vpc-id
   worker_instance_type          = var.worker_instance_type
-  sp-sg-cluster                 = module.security-group.cluster-sg-id
   ssh-key                       = "default_key_pair"
   environment                   = var.environment
   sp-subnet-control-a-id        = module.subnet.subnet_ids["control-a"]
