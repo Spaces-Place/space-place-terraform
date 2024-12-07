@@ -1,5 +1,4 @@
 resource "aws_eip" "sp-eip-nat" {
-
   tags = {
     Name        = "${var.environment}-sp-eip"
     Environment = var.environment
