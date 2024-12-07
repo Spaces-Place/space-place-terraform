@@ -15,12 +15,13 @@ data "aws_key_pair" "default_key_pair" {
 resource "aws_instance" "backend" {
   ami                         = data.aws_ami.python_ami.id
   key_name                    = data.aws_key_pair.default_key_pair.key_name
-  instance_type               = var.ami_worker_node_tier
-  availability_zone           = var.az_a
-  security_groups             = [var.web_sg_id]
-  subnet_id                   = var.public_subnet_a_id
+  instance_type               = "t3.micro"
+  availability_zone           = "ap-northeast-2a"
+  security_groups             = [aws_security_group.bastion-sg.id]
+  subnet_id                   = var.sp-subnet-public-id
   associate_public_ip_address = true
+
   tags = {
-    Name = "${var.environment}-backend"
+    Name = "${var.environment}-bastion"
   }
 }
